@@ -1,5 +1,4 @@
-" Sample .vimrc file by Martin Brochhaus
-" Presented at PyCon APAC 2012
+" Sample .vimrc file by Martin Brochhaus " Presented at PyCon APAC 2012
 
 
 " ============================================
@@ -202,6 +201,10 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
+" ===========================================================================
+" END OF PYTHON IDE SETUP
+" ===========================================================================
+
 
 " Python folding
 " mkdir -p ~/.vim/ftplugin
@@ -218,7 +221,7 @@ set incsearch
 augroup filetype
     autocmd!
     " Commenting blocks of code.
-    autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+    autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
     autocmd FileType sh,ruby,python   let b:comment_leader = '# '
     autocmd FileType conf,fstab       let b:comment_leader = '# '
     autocmd FileType tex              let b:comment_leader = '% '
@@ -230,3 +233,24 @@ augroup END
 
 " Short-cut from insert mode to normal mode
 inoremap jk <ESC>
+
+" Easy number toggle
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+nnoremap <C-r> :call NumberToggle()<cr>
+
+" Plugin - Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
