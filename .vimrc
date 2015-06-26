@@ -33,15 +33,9 @@ let mapleader = ","
 " Bind nohl
 " Removes highlight of your last search
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
-noremap <C-n> :nohl<CR>
-vnoremap <C-n> :nohl<CR>
-inoremap <C-n> :nohl<CR>
-
-
-" Quicksave command
-"" noremap <C-Z> :update<CR>
-"" vnoremap <C-Z> <C-C>:update<CR>
-"" inoremap <C-Z> <C-O>:update<CR>
+noremap <C-a> :nohl<CR>
+vnoremap <C-a> :nohl<CR>
+inoremap <C-a> :nohl<CR>
 
 
 " Quick quit command
@@ -184,22 +178,24 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
+
+set omnifunc=syntaxcomplete
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
-
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+" set completeopt=longest,menuone
+" function! OmniPopup(action)
+"     if pumvisible()
+"         if a:action == 'j'
+"             return "\<C-N>"
+"         elseif a:action == 'k'
+"             return "\<C-P>"
+"         endif
+"     endif
+"     return a:action
+" endfunction
+" 
+" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 " ===========================================================================
 " END OF PYTHON IDE SETUP
@@ -209,7 +205,7 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-" set nofoldenable ##UNCOMMENT TO ENABLE FOLDING
+set nofoldenable 
 
 
 " Faster search and replace
@@ -221,12 +217,12 @@ set incsearch
 augroup filetype
     autocmd!
     " Commenting blocks of code.
-    autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-    autocmd FileType conf,fstab       let b:comment_leader = '# '
-    autocmd FileType tex              let b:comment_leader = '% '
-    autocmd FileType mail             let b:comment_leader = '> '
-    autocmd FileType vim              let b:comment_leader = '" '
+    autocmd FileType c,cpp,java,scala,javascript  let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python               let b:comment_leader = '# '
+    autocmd FileType conf,fstab,sh                let b:comment_leader = '# '
+    autocmd FileType tex                          let b:comment_leader = '% '
+    autocmd FileType mail                         let b:comment_leader = '> '
+    autocmd FileType vim                          let b:comment_leader = '" '
     noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
     noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 augroup END
@@ -254,3 +250,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+map <C-t> <esc>:tabnew<CR>
+
